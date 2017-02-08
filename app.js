@@ -17,7 +17,10 @@ config(function($stateProvider, $urlRouterProvider) {
       views: {
             '': {templateUrl:"pages/index.html"},
             'nav@index': {templateUrl: 'pages_components/nav.html'},
-            'main@index': {templateUrl: 'pages_components/tables.html'}
+            'main@index': {
+                templateUrl: 'pages_components/tables.html',
+                controller: 'logCtrl'
+            }
         
             
       }
@@ -37,8 +40,19 @@ config(function($stateProvider, $urlRouterProvider) {
     
      .state('login',{
       url: "/login",
-      templateUrl:"pages/login.html"
+      templateUrl:"pages/login.html",
+      controller: "logCtrl",
     })
 
 
 });
+
+myApp.run(function($rootScope) {
+  
+    Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
+    Parse.serverURL = 'https://piegaserver.herokuapp.com/parse'
+    $rootScope.sessionUser = Parse.User.current();
+ 
+  });
+
+

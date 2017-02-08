@@ -1,13 +1,35 @@
 
-myApp.controller('logCtrl', ['$scope', function($scope) {
+myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
     console.log('logCtrl');
+    
+    $scope.logIn = function() {
+            console.log("Logging in...");
+             Parse.User.logIn($scope.username, $scope.password, {
+                  success: function(user) {
+                      console.log("welcome")
+                  },
+                  error: function(user, error) {
+                    // The login failed. Check error to see why.
+                     alert('Failed to create new object, error code: ' + error.message);
+             }
+            });
+    }
+    
+    $scope.logOut= function() {
+        console.log("logging out..")
+           Parse.User.logOut({
+          success: function() {
+            console.log("user logged out");
+          }
+        });
+}
     
 }])
 
 .controller('addCtrl', ['$scope', function($scope) {
         
     Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
-    Parse.serverURL = 'https://piegaserver.herokuapp.com//parse'
+    Parse.serverURL = 'https://piegaserver.herokuapp.com/parse'
     
     console.log('addCtrl');
     
