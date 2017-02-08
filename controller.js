@@ -27,7 +27,7 @@ myApp.controller('logCtrl', ['$scope', function($scope) {
           error: function(res, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, with error code: ' + error.message);
+            alert('Failed to create new object, error code: ' + error.message);
           }
         });
     }
