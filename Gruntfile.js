@@ -4,6 +4,8 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
             watch: {
+              options: {livereload: true,
+	      },
            
             html: {
                 files: ['app/**/**/**.html', 'app/**/**/**.html'], // which files to watch

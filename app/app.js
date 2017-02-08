@@ -41,18 +41,17 @@ config(function($stateProvider, $urlRouterProvider) {
      .state('login',{
       url: "/login",
       templateUrl:"pages/login.html",
-      controller: "logCtrl",
+      controller: "logCtrl"
     })
 
 
-});
+})
 
-myApp.run(function($rootScope) {
+.run(function($rootScope) {
   
     Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
     Parse.serverURL = 'https://piegaserver.herokusapp.com/parse'
     $rootScope.sessionUser = Parse.User.current();
  
-  });
-
+  })
 
