@@ -34,7 +34,7 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
     console.log('addCtrl');
     
     $scope.addAxe = function(){
-        console.log("Adding a new axe..:");
+        console.log("Adding a new axe..");
         var Axe = Parse.Object.extend("Axes");
         var axe = new Axe();
         
