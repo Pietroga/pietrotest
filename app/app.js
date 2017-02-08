@@ -3,21 +3,56 @@
 // Declare app level module which depends on views, and components
 var myApp = angular.module('myApp', [
   'ngRoute',
-  'myApp.version'
+  'myApp.version',
+  'ui.router'
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
 
-  $routeProvider
+config(function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/index');
   
-    .when("/login", {
-        templateUrl : "pages/login.html",
-        controller: "logCtrl",
+  $stateProvider
+  
+    .state('index',{
+      url: "/index",
+      views: {
+            '': {templateUrl:"pages/index.html"},
+            'nav@index': {templateUrl: 'pages_components/nav.html'},
+            'main@index': {
+                templateUrl: 'pages_components/tables.html',
+                controller: 'logCtrl'
+            }
+        
+            
+      }
     })
     
-    .when("/index", {
-        templateUrl : "pages/index.html"
+    .state('addAxes',{
+      url: "/addAxes",
+      views: {
+            '': {templateUrl:"pages/index.html"},
+            'nav@addAxes': {templateUrl: 'pages_components/nav.html'},
+            'main@addAxes': {
+                templateUrl: 'pages_components/add.html',
+                controller: 'addCtrl'
+            }
+      }
+    })
+    
+     .state('login',{
+      url: "/login",
+      templateUrl:"pages/login.html",
+      controller: "logCtrl",
     })
 
 
-  $routeProvider.otherwise({redirectTo: '/index'});
-}]);
+});
+
+myApp.run(function($rootScope) {
+  
+    Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
+    Parse.serverURL = 'https://piegaserver.herokusapp.com/parse'
+    $rootScope.sessionUser = Parse.User.current();
+ 
+  });
+
+
