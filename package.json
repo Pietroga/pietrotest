@@ -1,6 +1,9 @@
 {
   "name": "angular-seed",
   "version": "0.0.0",
+  "engines": {
+    "node": "^6.9.4"
+  },
   "devDependencies": {
     "bower": "^1.7.7",
     "grunt-contrib-watch": "^1.0.0",
