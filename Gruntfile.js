@@ -12,7 +12,7 @@ module.exports = function(grunt) {
                 files: ['app/**/**/**.html', 'app/**/**/**.html'], // which files to watch
             },
             js: {
-                files: ['app/**/**/**.js', 'app/**/**.js'], // which files to watch
+                files: ['app/**/**/**.js', 'app/**/**.js', 'app/app.js', 'app/controller.js'], // which files to watch
             }}
             
   });

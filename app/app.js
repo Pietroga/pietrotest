@@ -51,7 +51,7 @@ config(function($stateProvider, $urlRouterProvider) {
   
     Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
     Parse.serverURL = 'https://piegaserver.herokusapp.com/parse'
-    $rootScope.sessionUser = Parse.User.current();
+   // $rootScope.sessionUser = Parse.User.current();
  
   })
 

@@ -41,15 +41,15 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
         axe.set("axeId", $scope.axeId);
         axe.set("state", $scope.axeState);
         axe.set("fzgNr", $scope.fzgNr);
-
+        
         axe.save(null, {
           success: function(res) {
-            alert('New object created with objectId: ' + res.id);
+            console.log('New object created with objectId: ' + res.id);
           },
           error: function(res, error) {
             // Execute any logic that should take place if the save fails.
             // error is a Parse.Error with an error code and message.
-            alert('Failed to create new object, error code: ' + error.message);
+            console.log('Failed to create new object, error code: ' + error.message);
           }
         });
     }
