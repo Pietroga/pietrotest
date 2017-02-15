@@ -4,7 +4,8 @@
 var myApp = angular.module('myApp', [
   'ngRoute',
   'myApp.version',
-  'ui.router'
+  'ui.router',
+  'angular-growl'
 ]).
 
 config(function($stateProvider, $urlRouterProvider) {
@@ -19,7 +20,7 @@ config(function($stateProvider, $urlRouterProvider) {
             'nav@index': {templateUrl: 'pages_components/nav.html'},
             'main@index': {
                 templateUrl: 'pages_components/tables.html',
-                controller: 'logCtrl'
+                controller: 'tablesCtrl'
             }
         
             
@@ -48,10 +49,17 @@ config(function($stateProvider, $urlRouterProvider) {
 })
 
 .run(function($rootScope) {
-  
-    Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
-    Parse.serverURL = 'https://piegaserver.herokusapp.com/parse'
-   // $rootScope.sessionUser = Parse.User.current();
- 
+    
+    Parse.initialize("asdegFAsrz54h"); 
+    Parse.serverURL = 'https://pietroserver.herokuapp.com/parse'
+   $rootScope.sessionUser = Parse.User.current();
+   $rootScope.user = {
+       username: Parse.User.current().get("username"),
+       id: Parse.User.current().id,
+       organisation: Parse.User.current().get("organisation"),
+   }
+   
+
+
   })
 

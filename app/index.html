@@ -12,24 +12,25 @@
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
   <link rel="stylesheet" href="app.css">
+  <link rel="stylesheet" href="bower_components/angular-growl/build/angular-growl.min.css" type="text/css" />
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   
       <!-- Bootstrap Core CSS -->
-    <link href="/app/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
      <!-- Bootstrap Core CSS -->
-    <link href="/app/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="/app/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <link href="vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="/app/vendor/morrisjs/morris.css" rel="stylesheet">
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
     
     <!-- Custom Fonts -->
-    <link href="/app/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   
 </head>
 <body>
@@ -37,8 +38,9 @@
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
-  <div ui-view></div>
-
+  <div ui-view>
+  </div>
+  <div growl></div>
         <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -49,9 +51,9 @@
     <script src="vendor/metisMenu/metisMenu.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src= "/app/vendor/raphael/raphael.min.js"></script>
-    <script src="/app/vendor/morrisjs/morris.min.js"></script>
-    <script src="/app/data/morris-data.js"></script>
+    <script src= "vendor/raphael/raphael.min.js"></script>
+    <script src="vendor/morrisjs/morris.min.js"></script>
+    <script src="data/morris-data.js"></script>
     
   <!-- In production use:
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
@@ -64,14 +66,11 @@
   <script src="components/version/version.js"></script>
   <script src="components/version/version-directive.js"></script>
   <script src="components/version/interpolate-filter.js"></script>
+  <script src="bower_components/angular-growl/build/angular-growl.js"></script>
   
   <! Parse -->
   <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
-  
-  <script type="text/javascript">
-    Parse.initialize("asda65daidb8dGkiaxasonGDsr"); 
-    Parse.serverURL = 'https://pietroserver.herokuapp.com/parse'
-  </script>
+
   
 </body>
 </html>

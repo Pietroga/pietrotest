@@ -13,40 +13,34 @@
                         <!-- /.panel-heading -->
                         <div class="panel-body clearfix">
                             <form role="form" class="col-md-12 ">
-                                
-                                        <div class="form-group">
-                                        <div class="col-md-4">
-                                            <label>Axe Nr.</label>
-                                            <input class="form-control" ng-model= "axeId">
+                                            <div class="col-md-4 padding-top-20">
+                                            <label>Rs-Welle Nr.</label>
+                                            <input class="form-control" ng-model= "axeNr">
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 padding-top-20">
                                             <label>Fzg Nr.</label>
                                             <input class="form-control" ng-model= "fzgNr">
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 padding-top-20">
                                             <label>Status</label>
                                             <div>
                                               <button type="button" class="btn btn-success" ng-model="state" value=true >Ok</button>
-                                              <button type="button" class="btn btn-danger" ng-model="axeState" value=false >Not Ok</button>
+                                              <button type="button" class="btn btn-danger" ng-model="axeState" value=false >nicht Ok</button>
                                             </div>
                                         </div>
-                                        
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 padding-top-20">
                                             <label>Image</label>
-                                            <input type="file">
-                                         </div>    
-                                        <div class="col-md-4">
-                                            <label>CommentPietro</label>
-                                            <input class="form-control">
+                                            <input type="file" id="profilePhotoFileUpload">
+                                        </div>    
+                                        <div class="col-md-12 padding-top-20" >
+                                            <label>Kommentare</label>
+                                            <textarea class="form-control" ng-model="comment" rows="5"></textarea>
                                         </div>
-                                        </div>
-                                        
+
                             </form>
-                            
-                            
-                            <div class="col-md-4" style="margin-top:20px">
-                                <div class="col-md-4">  
-                                <button class="btn btn-default "  href="">Cancel</button>
+                            <div class="col-md-12 t" style="margin-top:20px">
+                                <div class="col-md-4 col-md-offset-8 pull-right">  
+                                <button class="btn btn-default "  ng-click="">Cancel</button>
                                 <button class=" btn btn-primary"  ng-click="addAxe()">Save</button>
                                 </div>
                             </div>

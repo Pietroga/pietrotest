@@ -2,8 +2,6 @@
 myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
     console.log('logCtrl');
     
-    Parse.initialize("asdvt6Fgkapis3dncjZdf"); 
-    Parse.serverURL = 'https://piegaserver.herokusapp.com/parse'
     
     $scope.logIn = function() {
             console.log("Logging in...");
@@ -29,7 +27,7 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
     
 }])
 
-.controller('addCtrl', ['$scope', function($scope, ParseService) {
+.controller('addCtrl', ['$scope', 'growl',  function($scope, growl, ParseService) {
         
     console.log('addCtrl');
     
@@ -38,13 +36,29 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
         var Axe = Parse.Object.extend("Axes");
         var axe = new Axe();
         
-        axe.set("axeId", $scope.axeId);
+        axe.set("axeNr", $scope.axeNr);
         axe.set("state", $scope.axeState);
         axe.set("fzgNr", $scope.fzgNr);
+        axe.set("comment",$scope.comment);
+        axe.set("createdBy",Parse.User.current());
         
+        var fileUploadControl = $("#profilePhotoFileUpload")[0];
+        if (fileUploadControl.files.length > 0) {
+          var file = fileUploadControl.files[0];
+          var name = "photo.jpg";
+        
+          var parseFile = new Parse.File(name, file);
+          parseFile.save()
+          
+          axe.set("img",parseFile);
+          
+          var myACL = new Parse.ACL(Parse.User.current());
+        myACL.setPublicReadAccess(true);
+        axe.setACL(myACL);
         axe.save(null, {
           success: function(res) {
             console.log('New object created with objectId: ' + res.id);
+            growl.addWarnMessage("This adds a warn message");
           },
           error: function(res, error) {
             // Execute any logic that should take place if the save fails.
@@ -52,14 +66,52 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
             console.log('Failed to create new object, error code: ' + error.message);
           }
         });
-    }
+    };
+    
+        }
+        
+        
+        
+        
+        
     
 }])
 
 .controller('tablesCtrl', ['$scope', function($scope, ParseService) {
         
     console.log('tablesCtrl');
-    
+    var res = [];
+    $scope.resultData= []
+        var Axes = Parse.Object.extend("Axes");
+        var query = new Parse.Query(Axes);
+        query.limit(10);
+        query.find({
+          success: function(result) {
+              console.log("results: " + result.length)
+              
+                    for (var i = 0; i < result.length; i++) {
+                        var u = result[i].get("createdBy");
+                        
+                        console.log(u);
+                         var data = {
+                            id: result[i].id,
+                            axeNr: result[i].get("axeNr"),
+                            fzgNr: result[i].get("fzgNr"),
+                            state: result[i].get("state"),
+                            createdAt: result[i].get("createdAt"),
+                            createdBy: u,
+                            
+                        };
+                        res.push(data);
+                        $scope.resultData = res;
+                    }
+               $scope.$apply()
+          },
+          error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+          }
+        })
+
 
 }]);
 
