@@ -2,7 +2,6 @@
 myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
     console.log('logCtrl');
     
-    
     $scope.logIn = function() {
             console.log("Logging in...");
              Parse.User.logIn($scope.username, $scope.password, {
@@ -78,7 +77,7 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
 }])
 
 .controller('tablesCtrl', ['$scope', function($scope, ParseService) {
-        
+
     console.log('tablesCtrl');
     var res = [];
     $scope.resultData= []
@@ -91,9 +90,7 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
               
                     for (var i = 0; i < result.length; i++) {
                         var u = result[i].get("createdBy");
-                        
-                        console.log(u);
-                         var data = {
+                        var data = {
                             id: result[i].id,
                             axeNr: result[i].get("axeNr"),
                             fzgNr: result[i].get("fzgNr"),
@@ -111,6 +108,64 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
             alert("Error: " + error.code + " " + error.message);
           }
         })
+
+
+}])
+
+.controller('myTablesCtrl', ['$scope', function($scope, ParseService) {
+
+    console.log('tablesCtrl');
+    var res = [];
+    $scope.resultData= []
+        var Axes = Parse.Object.extend("Axes");
+        var query = new Parse.Query(Axes);
+        query.limit(10);
+        query.find({
+          success: function(result) {
+              console.log("results: " + result.length)
+              
+                    for (var i = 0; i < result.length; i++) {
+                        var u = result[i].get("createdBy");
+                        var data = {
+                            id: result[i].id,
+                            axeNr: result[i].get("axeNr"),
+                            fzgNr: result[i].get("fzgNr"),
+                            state: result[i].get("state"),
+                            createdAt: result[i].get("createdAt"),
+                            createdBy: u,
+                            
+                        };
+                        res.push(data);
+                        $scope.resultData = res;
+                    }
+               $scope.$apply()
+          },
+          error: function(error) {
+            alert("Error: " + error.code + " " + error.message);
+          }
+        })
+
+
+}])
+
+.controller('infoCtrl', ['$scope', function($scope, ParseService, $stateParams) {
+
+    console.log('infoCtrl');
+
+    console.log("id: " + this.$stateParams.myParam)
+    
+        var Axes = Parse.Object.extend("Axes");
+        var query = new Parse.Query(Axes);
+        
+        /*query.get("xWMyZ4YEGZ", {
+          success: function(gameScore) {
+            // The object was retrieved successfully.
+          },
+          error: function(object, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and message.
+          }
+        })*/
 
 
 }]);

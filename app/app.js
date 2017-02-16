@@ -22,8 +22,7 @@ config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: 'pages_components/tables.html',
                 controller: 'tablesCtrl'
             }
-        
-            
+
       }
     })
     
@@ -39,27 +38,63 @@ config(function($stateProvider, $urlRouterProvider) {
       }
     })
     
+    
      .state('login',{
       url: "/login",
       templateUrl:"pages/login.html",
-      controller: "logCtrl"
+      controller: "logCtrl",
     })
+    
+     .state('infoAxe',{
+      url: "/infoAxe/?itemId",
+          
+      views: {
+            '': {templateUrl:"pages/index.html"},
+            'nav@infoAxe': {templateUrl: 'pages_components/nav.html'},
+            'main@infoAxe': {
+                templateUrl: 'pages_components/edit.html',
+                params: { itemId: "ciao", },
+                controller: function($stateParams, $scope){
+                        console.log($stateParams.itemId);
+                        $scope.myParam = $stateParams.itemId;
+                        var Axes = Parse.Object.extend("Axes");
+                        var query = new Parse.Query(Axes);
+        
+                        query.get($scope.myParam, {
+                          success: function(object) {
+                            
+                            $scope.objId = object.id;
+                            $scope.axeNr = object.get("axeNr");
+                            console.log(object.get("axeNr"))
+                            $scope.$apply()
+                          },
+                          error: function(object, error) {
+                              console.log('Failed to create new object, with error code: ' + error.message);
+                          }
+                        })
+                    }
+            }
+      },
+      
+      
+    })
+    
+
 
 
 })
 
-.run(function($rootScope) {
-    
+.run(function($rootScope, $state) {
     Parse.initialize("asdegFAsrz54h"); 
     Parse.serverURL = 'https://pietroserver.herokuapp.com/parse'
-   $rootScope.sessionUser = Parse.User.current();
-   $rootScope.user = {
+   $rootScope.currentUser = Parse.User.current();
+   if ( Parse.User.current() != null){
+       $rootScope.user = {
        username: Parse.User.current().get("username"),
        id: Parse.User.current().id,
        organisation: Parse.User.current().get("organisation"),
+        }
    }
-   
-
-
   })
+
 
