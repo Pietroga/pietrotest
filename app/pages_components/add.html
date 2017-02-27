@@ -12,21 +12,26 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body clearfix">
-                            <form role="form" class="col-md-12 ">
+                            <form role="form" class="col-md-12 " ng-controller="autocompCtrl">
                                             <div class="col-md-4 padding-top-20">
                                             <label>Rs-Welle Nr.</label>
-                                            <input class="form-control" ng-model= "axeNr">
+                                            <autocomplete ng-model="yourchoice" data="movies" on-type="updateMovies"></autocomplete>
                                         </div>
                                         <div class="col-md-4 padding-top-20">
                                             <label>Fzg Nr.</label>
-                                            <input class="form-control" ng-model= "fzgNr">
+                                            <input class="form-control" ng-model="fzgNr">
+                                        </div>
+                                        
+                                        <div class="col-md-4 padding-top-20">
+                                            <label>DG Nr.</label>
+                                            <input type="number" class="form-control" ng-model="dgNr">
                                         </div>
                                         <div class="col-md-4 padding-top-20">
                                             <label>Status</label>
-                                            <div>
-                                              <button type="button" class="btn btn-success" ng-model="state" value=true >Ok</button>
-                                              <button type="button" class="btn btn-danger" ng-model="axeState" value=false >nicht Ok</button>
-                                            </div>
+                                                <div class="btn-group">
+                                                    <label class="btn btn-default" ng-model="axeState" uib-btn-radio="true">OK</label>
+                                                    <label class="btn btn-default" ng-model="axeState" uib-btn-radio="false">Nich OK</label>
+                                             </div>
                                         </div>  
                                         <div class="col-md-12 padding-top-20" >
                                             <label>Kommentare</label>
@@ -35,6 +40,7 @@
                                         
                                         <div class="col-md-4 padding-top-20">
                                             <label>Photos</label>
+                                            <div id="axeImg"></div>
                                             <input type="file" id="profilePhotoFileUpload">
                                         </div>  
 

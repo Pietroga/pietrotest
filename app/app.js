@@ -5,10 +5,12 @@ var myApp = angular.module('myApp', [
   'ngRoute',
   'myApp.version',
   'ui.router',
-  'angular-growl'
+  'angular-growl',
+  'ui.bootstrap',
+  'autocomplete'
 ]).
 
-config(function($stateProvider, $urlRouterProvider) {
+config(function($stateProvider, $urlRouterProvider, growlProvider) {
   $urlRouterProvider.otherwise('/index');
   
   $stateProvider
@@ -22,8 +24,7 @@ config(function($stateProvider, $urlRouterProvider) {
                 templateUrl: 'pages_components/tables.html',
                 controller: 'tablesCtrl'
             }
-
-      }
+      },
     })
     
     .state('addAxes',{
@@ -65,11 +66,16 @@ config(function($stateProvider, $urlRouterProvider) {
                             
                             $scope.objId = object.id;
                             $scope.axeNr = object.get("axeNr");
-                            console.log(object.get("axeNr"))
+                            $scope.fzgNr = object.get("fzgNr");
+                            $scope.axeState = object.get("state");
+                            $scope.dg = object.get("dg");
+                            $scope.comment = object.get("comment");
+                            $scope.axeImg= object.get("img");
+                            console.log($scope.axeImg);
                             $scope.$apply()
                           },
                           error: function(object, error) {
-                              console.log('Failed to create new object, with error code: ' + error.message);
+                              console.log('Failed to retrive the object, with error code: ' + error.message);
                           }
                         })
                     }
@@ -79,22 +85,44 @@ config(function($stateProvider, $urlRouterProvider) {
       
     })
     
-
-
+    growlProvider.globalTimeToLive(5000);
+    
 
 })
 
-.run(function($rootScope, $state) {
+.run( ['$rootScope', '$state', function($rootScope, $state,  Authorization, $scope) {
     Parse.initialize("asdegFAsrz54h"); 
     Parse.serverURL = 'https://pietroserver.herokuapp.com/parse'
+    
    $rootScope.currentUser = Parse.User.current();
-   if ( Parse.User.current() != null){
+   if ( $rootScope.currentUser != null){
        $rootScope.user = {
        username: Parse.User.current().get("username"),
        id: Parse.User.current().id,
        organisation: Parse.User.current().get("organisation"),
         }
+   }else{
+       console.log("please login")
+       
    }
-  })
+   
+   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+       
+  });
+   
+   
+  }]);
+  
+  myApp.factory('Authorization', function(){
+    return {
+        sayHello: function(text){
+            return "Factory says \"Hello " + text + "\"";
+        }  
+    }         
+});
+  
+  
+
+
 
 

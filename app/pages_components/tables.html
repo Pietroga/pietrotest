@@ -1,6 +1,6 @@
 <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Hallo, {{user.username}} <button class="btn btn-default"  ><i class="fa fa-edit"></i></button</h1>
+                    <h1 class="page-header">Hallo, {{user.username}}</h1>
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
@@ -28,7 +28,7 @@
                                         <td>{{d.fzgNr}}</td>
                                         <td >{{d.state}}</td>
                                         <td >{{d.createdAt}}</td>
-                                        <th><button class="btn btn-default" ui-sref="infoAxe({itemId:'kDCItWC1eX'})"><i class="fa fa-edit"></i></button></th>
+                                        <th><button class="btn btn-default" ui-sref="infoAxe({itemId:d.id})"><i class="fa fa-edit"></i></button></th>
                                     </tr>
                                 </tbody>
                             </table>
@@ -45,3 +45,4 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            

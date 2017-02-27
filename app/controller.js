@@ -26,12 +26,11 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
     
 }])
 
-.controller('addCtrl', ['$scope', 'growl',  function($scope, growl, ParseService) {
-        
+.controller('addCtrl', ['$scope', 'growl','$state',  function($scope, growl, $state, ParseService) {
     console.log('addCtrl');
     
     $scope.addAxe = function(){
-        console.log("Adding a new axe..");
+        console.log("Adding a new axe.." + $scope.axeState);
         var Axe = Parse.Object.extend("Axes");
         var axe = new Axe();
         
@@ -39,6 +38,7 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
         axe.set("state", $scope.axeState);
         axe.set("fzgNr", $scope.fzgNr);
         axe.set("comment",$scope.comment);
+        axe.set("dg",$scope.dgNr);
         axe.set("createdBy",Parse.User.current());
         
         var fileUploadControl = $("#profilePhotoFileUpload")[0];
@@ -50,14 +50,16 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
           parseFile.save()
           
           axe.set("img",parseFile);
+          }
           
           var myACL = new Parse.ACL(Parse.User.current());
         myACL.setPublicReadAccess(true);
+                growl.addSuccessMessage("res.id wurde gespeichert!");
         axe.setACL(myACL);
         axe.save(null, {
           success: function(res) {
+            growl.addSuccessMessage("res.id wurde gespeichert!");
             console.log('New object created with objectId: ' + res.id);
-            growl.addWarnMessage("This adds a warn message");
           },
           error: function(res, error) {
             // Execute any logic that should take place if the save fails.
@@ -65,18 +67,12 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
             console.log('Failed to create new object, error code: ' + error.message);
           }
         });
-    };
-    
+                    
+
         }
-        
-        
-        
-        
-        
-    
 }])
 
-.controller('tablesCtrl', ['$scope', function($scope, ParseService) {
+.controller('tablesCtrl', ['$scope', '$state', function($scope, $state, ParseService, Authorization) {
 
     console.log('tablesCtrl');
     var res = [];
@@ -112,7 +108,7 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
 
 }])
 
-.controller('myTablesCtrl', ['$scope', function($scope, ParseService) {
+.controller('myTablesCtrl', ['$scope','Authorization', function($scope,  Authorization) {
 
     console.log('tablesCtrl');
     var res = [];
@@ -122,8 +118,6 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
         query.limit(10);
         query.find({
           success: function(result) {
-              console.log("results: " + result.length)
-              
                     for (var i = 0; i < result.length; i++) {
                         var u = result[i].get("createdBy");
                         var data = {
@@ -144,29 +138,98 @@ myApp.controller('logCtrl', ['$scope',  function($scope, ParseService) {
             alert("Error: " + error.code + " " + error.message);
           }
         })
+        console.log("ciao")
+        $scope.fromFactory = Authorization.sayHello("World");
+        console.log("ciao" + $scope.fromFactory)
 
 
 }])
 
-.controller('infoCtrl', ['$scope', function($scope, ParseService, $stateParams) {
+.controller('infoCtrl', ['$scope','$http', function($scope, $http) {
 
     console.log('infoCtrl');
 
-    console.log("id: " + this.$stateParams.myParam)
-    
-        var Axes = Parse.Object.extend("Axes");
-        var query = new Parse.Query(Axes);
+ 
+        var myArray = [];
         
-        /*query.get("xWMyZ4YEGZ", {
-          success: function(gameScore) {
-            // The object was retrieved successfully.
-          },
-          error: function(object, error) {
-            // The object was not retrieved successfully.
-            // error is a Parse.Error with an error code and message.
-          }
-        })*/
+        $http.get("axes.json")
+        .then(function(response) {
+        $scope.myWelcome = response.data;
+        myArray = response.data
+        console.log($scope.myWelcome)
+        
+            /* for (i = 0; i < myArray.length; i++) { 
+                console.log(myArray[i].Axe)
+                var Axes = Parse.Object.extend("AxesNr");
+                var newAxes = new Axes();
+                newAxes.set("axeNr",myArray[i].Axe);
+                newAxes.save(null, {
+                      success: function(res) {
+                        alert('New object created with objectId: ' + res.id);
+                      },
+                      error: function(res, error) {
+                        alert('Failed to create new object, with error code: ' + error.message);
+                      }
+                    });
+            }*/
+
+    });
+    
 
 
-}]);
+}])
+
+.controller('editCtrl', ['$scope', 'growl','$state','$http',  function($scope, growl, $state, $http) {
+        
+    console.log('editCtrl');
+    
+    $scope.update = function(){
+    console.log("updating..." + $scope.objId);
+    var Axe = Parse.Object.extend("Axes");
+    var query = new Parse.Query(Axe);
+    query.equalTo("objectId", $scope.objId);
+    query.get($scope.objId, {
+      success: function(object) {
+         object.set("axeNr", $scope.axeNr);
+         object.set("fzgNr", $scope.fzgNr);
+         object.set("dg", $scope.dg);
+         object.set("comment", $scope.comment);
+         object.save(null, {
+              success: function(gameScore) {
+                  console.log("updated!");
+              }
+            });
+      },
+      error: function(error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+    }
+    
+    $scope.cancel = function(){
+        $state.reload()
+    }
+  
+}])
+
+.controller('autocompCtrl', ['$scope','$http', function($scope, $http) {
+
+    console.log('autocompCtrl');
+
+         $scope.movies = ["Lord of the Rings",
+                                "Drive",
+                                "Science of Sleep",
+                                "Back to the Future",
+                                "Oldboy"];
+        
+                // gives another movie array on change
+                $scope.updateMovies = function(typed){
+                    $scope.newmovies = MovieRetriever.getmovies(typed);
+                    $scope.newmovies.then(function(data){
+                      $scope.movies = data;
+                    });
+                }
+
+
+}])
 
