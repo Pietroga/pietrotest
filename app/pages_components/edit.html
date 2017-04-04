@@ -5,32 +5,36 @@
                 <!-- /.col-lg-12 -->
             </div>
 <div class="row">
-                <div class="col-lg-6" ng-init="edit = false" ng-controller="editCtrl">
+                <div class="col-lg-6" ng-init="edit = false">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                            RS-Welle Nr: {{axeNr}}
-                           <button class="btn btn-default" ng-hide="edit" ng-click=" edit = true "><i class="fa fa-edit" ></i></button>
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body clearfix">
                             <form role="form" class="col-md-12 " >
-                                            <div class="col-md-4 padding-top-20">
-                                            <label>Rs-Welle Nr.</label>
+                                            <div class="col-md-6 padding-top-20">
+                                            <label>Rs-Welle Nr. {{ciao}}</label>
                                             <div ng-hide="edit">{{axeNr}}</div>
                                             <input class="form-control" ng-model= "axeNr" ng-show="edit">
                                         </div>
-                                        <div class="col-md-4 padding-top-20">
+                                        <div class="col-md-6 padding-top-20">
                                             <label>Fzg Nr.</label>
                                             <div ng-hide="edit">{{fzgNr}}</div>
                                             <input class="form-control" ng-model= "fzgNr" ng-show="edit">
                                         </div>
+                                        <div class="col-md-6 padding-top-20">
+                                            <label>Wg Nr.</label>
+                                            <div ng-hide="edit">{{wgNr}}</div>
+                                            <input class="form-control" ng-model= "wgNr" ng-show="edit">
+                                        </div>
                                         
-                                        <div class="col-md-4 padding-top-20">
+                                        <div class="col-md-6 padding-top-20">
                                             <label>DG Nr.</label>
                                             <div ng-hide="edit">{{dg}}</div>
                                             <input type="number" class="form-control" ng-model= "dgNr" ng-show="edit">
                                         </div>
-                                        <div class="col-md-4 padding-top-20" >
+                                        <div class="col-md-6 padding-top-20" >
                                             <label>Status</label>
                                             <div ng-hide="edit">{{axeState}}</div>
                                              <div class="btn-group" ng-show="edit">
@@ -38,18 +42,49 @@
                                                     <label class="btn btn-default" ng-model="axeState" uib-btn-radio="false">Nich OK</label>
                                              </div>
                                         </div>  
-                                        <div class="col-md-12 padding-top-20" ng-show="edit">
+                                        <div class="col-md-6 padding-top-20" >
+                                            <label>UT-Prufüng</label>
+                                            <div ng-hide="edit">{{test}}</div>
+                                             <div class="btn-group" ng-show="edit">
+                                                    <label class="btn btn-default" ng-model="test" uib-btn-radio="true">OK</label>
+                                                    <label class="btn btn-default" ng-model="test" uib-btn-radio="false">Nich OK</label>
+                                             </div>
+                                        </div>  
+                                        <div class="col-md-12 padding-top-20" >
                                             <label>Kommentare</label>
+                                            <div ng-hide = "edit">{{comment}}</div>
                                             <textarea class="form-control" ng-model="comment" rows="5" ng-show="edit"></textarea>
                                         </div>
                                         
                                         <div class="col-md-4 padding-top-20" ng-show="edit">
                                             <label>Photos</label>
-                                            <input type="file" id="profilePhotoFileUpload">
+                                            <input t type="file" id="profilePhotoFileUpload" >
                                         </div> 
-                                        <div class="col-md-4 padding-top-20" ng-hide="edit">
-                                            
-                                        </div> 
+
+                            </form>
+                            <div class="col-md-12 t" style="margin-top:20px" >
+                                <div class="col-md-6 col-md-offset-6 pull-right">
+                                <button class="btn btn-default" ng-hide="edit" ng-click=" edit = true "><i class="fa fa-edit" ></i>Ändern</button>
+                                <button class="btn btn-default "  ng-click=" cancel()" ng-show="edit">Cancel</button>
+                                <button class=" btn btn-primary"  ng-click="update()" ng-show="edit">Speichern</button>
+                                </div>
+                            </div>
+                        </div>
+                        {{data}}
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <div class="col-lg-6" ng-init="edit = false" ng-controller="editCtrl">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                           Bild
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body clearfix">
+                            <form role="form" class="col-md-12 " >
+                                           
+                                            <img class="img-responsive" ng-src="{{imgUrl}}" ng-hide="edit">
 
                             </form>
                             <div class="col-md-12 t" style="margin-top:20px" ng-show="edit">

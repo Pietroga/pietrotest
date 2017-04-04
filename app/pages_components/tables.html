@@ -17,7 +17,9 @@
                                     <tr>
                                         <th>RS-Welle Nr.</th>
                                         <th>Fzg Nr.</th>
+                                        <th>Wg Nr.</th>
                                         <th>Status</th>
+                                        <th>UT</th>
                                         <th>Datum</th>
                                         <th></th>
                                     </tr>
@@ -26,7 +28,9 @@
                                     <tr class="gradeU" ng-repeat= "d in resultData">
                                         <td>{{d.axeNr}}</td>
                                         <td>{{d.fzgNr}}</td>
+                                        <td>{{d.wgNr}}</td>
                                         <td >{{d.state}}</td>
+                                        <td>{{d.test}}</td>
                                         <td >{{d.createdAt}}</td>
                                         <th><button class="btn btn-default" ui-sref="infoAxe({itemId:d.id})"><i class="fa fa-edit"></i></button></th>
                                     </tr>

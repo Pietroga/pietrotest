@@ -12,25 +12,35 @@
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body clearfix">
-                            <form role="form" class="col-md-12 " ng-controller="autocompCtrl">
-                                            <div class="col-md-4 padding-top-20">
-                                            <label>Rs-Welle Nr.</label>
-                                            <autocomplete ng-model="yourchoice" data="movies" on-type="updateMovies"></autocomplete>
+                            <form role="form" class="col-md-12 ">
+                                            <div class="col-md-6 padding-top-20">
+                                            <label>Rs-Welle Nr.  {{axeNr}}</label>
+                                     <input type="text" ng-model="axeNr" uib-typeahead="state for state in axes | filter:$viewValue| limitTo:8" class="form-control">
                                         </div>
-                                        <div class="col-md-4 padding-top-20">
+                                        <div class="col-md-6 padding-top-20">
                                             <label>Fzg Nr.</label>
-                                            <input class="form-control" ng-model="fzgNr">
+                                            <autocomplete ng-model="fzgNr" data="fzgList"></autocomplete>
                                         </div>
-                                        
-                                        <div class="col-md-4 padding-top-20">
+                                        <div class="col-md-6 padding-top-20">
+                                            <label>Wagen Nr.</label>
+
+                                        </div>
+                                        <div class="col-md-6 padding-top-20">
                                             <label>DG Nr.</label>
                                             <input type="number" class="form-control" ng-model="dgNr">
                                         </div>
-                                        <div class="col-md-4 padding-top-20">
+                                        <div class="col-md-6 padding-top-20">
                                             <label>Status</label>
                                                 <div class="btn-group">
                                                     <label class="btn btn-default" ng-model="axeState" uib-btn-radio="true">OK</label>
-                                                    <label class="btn btn-default" ng-model="axeState" uib-btn-radio="false">Nich OK</label>
+                                                    <label class="btn btn-default" ng-model="axeState" uib-btn-radio="false">Nicht OK</label>
+                                             </div>
+                                        </div>  
+                                        <div class="col-md-6 padding-top-20">
+                                            <label>UT-Prüfung</label>
+                                                <div class="btn-group">
+                                                    <label class="btn btn-default" ng-model="test" uib-btn-radio="true">OK</label>
+                                                    <label class="btn btn-default" ng-model="test" uib-btn-radio="false">Nicht OK</label>
                                              </div>
                                         </div>  
                                         <div class="col-md-12 padding-top-20" >
@@ -68,6 +78,7 @@
                                     <tr>
                                         <th>RS-Welle Nr.</th>
                                         <th>Status</th>
+                                        <th>UT</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -75,7 +86,8 @@
                                      <tr class="gradeU" ng-repeat= "d in resultData">
                                         <td>{{d.axeNr}}</td>
                                         <td >{{d.state}}</td>
-                                        <th><button class="btn btn-default"><i class="fa fa-edit"></i></button></th>
+                                        <td >{{d.test}}</td>
+                                        <th><button class="btn btn-default" ui-sref="infoAxe({itemId:d.id})"><i class="fa fa-edit"></i></button></th>
                                     </tr>
                                 </tbody>
                             </table>
@@ -86,3 +98,31 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            
+            <style>
+  .typeahead-demo .custom-popup-wrapper {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    background-color: #f9f9f9;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .message {
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    color: #868686;
+  }
+
+  .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
+    position: static;
+    float: none;
+    display: block;
+    min-width: 160px;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+</style>

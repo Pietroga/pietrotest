@@ -9,10 +9,10 @@ module.exports = function(grunt) {
             options: {livereload: true,},
            
             html: {
-                files: ['app/**/**/**.html', 'app/**/**/**.html'], // which files to watch
+                files: ['app/**/**/**.html', 'app/**/**/**.html', 'app/pages-components/**.html'], // which files to watch
             },
             js: {
-                files: ['app/**/**/**.js', 'app/**/**.js', 'app/app.js', 'app/controller.js'], // which files to watch
+                files: ['app/**/**/**.js', 'app/**/**.js', 'app/app.js', 'app/controller.js', 'app/bower_components/allmighty-autocomplete/style/autocomplete.css'], // which files to watch
             }}
             
   });

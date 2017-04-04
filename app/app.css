@@ -27,3 +27,38 @@
 .padding-top-20{
   padding-top: 20px;
 }
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+    cursor:pointer;
+}
+label {
+    cursor:default;
+    margin:0;
+}
+.form {
+    width:400px;
+    margin:0px auto;
+    text-align:left;
+    background:#F2F1F0;
+    border-top-left-radius: 10px 5px;
+    border-top-right-radius: 10px 5px;
+    border:1px solid #474641;
+}
+.formHeader {
+    background:#474641;
+    color:#ddd;
+    padding:4px;
+    font-weight:600;
+    border-top-left-radius: 10px 5px;
+    border-top-right-radius: 10px 5px;
+}
+.formBody {
+    padding:10px;
+}
+.data {
+    margin:0px auto;
+    text-align:left;
+}
+.dropdown-menu {
+    text-align:left;
+}
